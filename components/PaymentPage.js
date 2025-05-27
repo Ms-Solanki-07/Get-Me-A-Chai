@@ -32,9 +32,11 @@ const PaymentPage = ({ username }) => {
                 theme: "dark",
             });
         }
-        router.push(`/${username}`)
+        // router.push(`/${username}`)
+        if (!session) {
+            router.push('/login')
+        }
     }, [])
-
 
 
     const [paymentform, setPaymentform] = useState({
@@ -109,26 +111,28 @@ const PaymentPage = ({ username }) => {
             <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
 
             <div className='cover w-full bg-gray-200 relative'>
-                <img className='object-cover w-full h-62' src={currentUser.coverPicture} alt="cover" />
+                <img className='object-cover w-full h-35 md:h-62' src={currentUser.coverPicture} alt="cover" />
 
-                <div className='absolute -bottom-14 border-2 border-amber-500 left-[46%]  rounded-2xl bg-white overflow-hidden size-28'>
+                <div className='absolute -bottom-14 border-2 border-amber-500 left-[38%] md:left-[46%]  rounded-2xl bg-white overflow-hidden size-28'>
                     <img width={150} height={150} className='object-cover size-28' src={currentUser.profilePicture} alt="Profile" />
                 </div>
             </div>
 
             <div className='flex flex-col items-center justify-center mt-18'>
-                <h1 className='text-3xl font-bold mb-2'>{`@${username}`}</h1>
-                <p className='text-gray-400'>creating Board Game Media Magic</p>
-                <p className='text-gray-500'>565 members . 268 posts</p>
+                <h1 className='text-lg md:text-3xl md:font-bold mb-2'>{`@${username}`}</h1>
+                <p className='text-gray-400'>Lets help '{username}' get a chai.</p>
+                <p className='text-gray-500'>
+                    {payments.length} Payments . ₹{payments.reduce((a, b) => a + b.amount, 0)} Raised
+                </p>
             </div>
 
-            <div className='payment flex w-[80%] mx-auto mt-10 mb-12 gap-4'>
-                <div className='supportes w-1/2 bg-gray-800 p-5 rounded-lg'>
+            <div className='payment flex flex-col md:flex-row w-[80%] mx-auto mt-10 mb-12 gap-4'>
+                <div className='supportes w-full md:w-1/2 bg-gray-800 p-5 rounded-lg'>
                     {/* show the list of supporters */}
-                    <h2 className='text-lg font-bold mb-2'>Supporters..</h2>
+                    <h2 className='text-lg font-bold mb-2'>Top 5 Supporters..</h2>
                     <ul className='mx-2'>
                         {payments.length == 0 && <li>No Payments yet..</li>}
-                        {payments.map((p, i) => {
+                        {payments.slice(0, 5).map((p, i) => {
                             return <li key={p.order_id} className='my-2 flex items-center gap-1'>
                                 <img width={33} src="avatar.gif" alt="" />
                                 <span>
@@ -140,17 +144,17 @@ const PaymentPage = ({ username }) => {
                     </ul>
                 </div>
 
-                <div className="makePayment w-1/2 bg-gray-800 p-5 rounded-lg">
+                <div className="makePayment w-full md:w-1/2 bg-gray-800 p-5 rounded-lg">
                     <h2 className='text-lg font-bold'>Make a Payment</h2>
                     <div className='flex flex-col gap-3 mt-2'>
-                        <input onChange={handleChange} name="name" value={paymentform.name} type="text" placeholder='Enter Name' className='p-2 rounded-lg bg-gray-700' />
-                        <input onChange={handleChange} name="message" value={paymentform.message} type="text" placeholder='Enter Message' className='p-2 rounded-lg bg-gray-700' />
-                        <input onChange={handleChange} name="amount" value={paymentform.amount} type="text" placeholder='Enter Amount' className='p-2 rounded-lg bg-gray-700' />
-                        <button onClick={() => pay(Number.parseInt(paymentform.amount) * 100)} className='bg-[#FF007A] hover:bg-[#ff007bd0] p-2 rounded-lg text-white disabled:bg-[#3d3b3c]' disabled={paymentform.name?.length < 3 || paymentform.message?.length < 4}>Make Payment</button>
+                        <input onChange={handleChange} name="name" value={paymentform.name} type="text" placeholder='Enter Name' className='p-2 rounded-lg bg-gray-700' required />
+                        <input onChange={handleChange} name="message" value={paymentform.message} type="text" placeholder='Enter Message' className='p-2 rounded-lg bg-gray-700' required />
+                        <input onChange={handleChange} name="amount" value={paymentform.amount} type="number" placeholder='Enter Amount' className='p-2 rounded-lg bg-gray-700' required />
+                        <button onClick={() => pay(Number.parseInt(paymentform.amount) * 100)} className='bg-[#FF007A] hover:bg-[#ff007bd0] p-2 rounded-lg text-white disabled:bg-[#3d3b3c]' disabled={paymentform.name?.length < 3 || paymentform.message?.length < 3 || paymentform.amount < 1}>Make Payment</button>
                     </div>
                     {/* or chsose form these Amount  */}
                     <div>
-                        <div className='flex justify-start gap-2 mt-2'>
+                        <div className='flex md:justify-start justify-between gap-2 mt-2'>
                             <button onClick={() => pay(1000)} className='bg-gray-700 p-2 hover:bg-gray-600 rounded-lg text-white'>Pay ₹10</button>
                             <button onClick={() => pay(2000)} className='bg-gray-700 p-2 hover:bg-gray-600 rounded-lg text-white'>Pay ₹20</button>
                             <button onClick={() => pay(3000)} className='bg-gray-700 p-2 hover:bg-gray-600 rounded-lg text-white'>Pay ₹30</button>

@@ -14,9 +14,8 @@ const Navbar = () => {
         <div className="logo font-bold text-lg">GetMeAChai</div>
       </Link>
       <ul className="flex items-center space-x-4">
-        <li>Home</li>
-        <li>About</li>
-        <li>Projects</li>
+        <Link href={"/"}><li className='hidden md:block'>Home</li></Link>
+        <Link href={"/about"}><li className='hidden md:block'>About</li></Link>
 
         {!session && (
           <Link href="/login">
@@ -32,7 +31,7 @@ const Navbar = () => {
           >
             <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" onClick={() => {setShowDropdown(!showDropdown) }} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-2 py-1 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
               <img width={34} className='mr-2 rounded-full border border-black' src={session.user.image} alt="Profile" />
-              <span className='min-w-24 text-left'>{session.user.username}</span>
+              <span className='min-w-24 text-left overflow-hidden'>{session.user.username}</span>
               <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
               </svg>
@@ -51,7 +50,7 @@ const Navbar = () => {
                   <Link href={`/${session.user.username}`} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Your Page</Link>
                 </li>
                 <li>
-                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</Link>
+                  <Link href={"/about"} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">About</Link>
                 </li>
               </ul>
               <div className="py-2">

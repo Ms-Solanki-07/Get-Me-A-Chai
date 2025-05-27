@@ -10,7 +10,6 @@ export const initiate = async (amount, to_user, paymentform) => {
         await connectDB()
         //fetch the secret of the user who is getting the payment
         let user = await User.findOne({ username: to_user })
-        console.log("ID:", user.razorPayId, "Secret:", user.razorPaySecret)
 
         if (!user || !user.razorPayId || !user.razorPaySecret) {
             throw new Error("Missing Razorpay credentials for user");
@@ -20,7 +19,6 @@ export const initiate = async (amount, to_user, paymentform) => {
             key_id: user.razorPayId,
             key_secret: user.razorPaySecret
         })
-        console.log("Razorpay instance created with key_id:", user.razorPayId)
 
 
         let options = {
@@ -29,7 +27,6 @@ export const initiate = async (amount, to_user, paymentform) => {
         }
 
         let order = await instance.orders.create(options)
-        console.log(order)
 
         if (!order || !order.id) {
             throw new Error("Failed to create Razorpay order");
@@ -65,7 +62,9 @@ export const fetchPayments = async (username) => {
     await connectDB()
 
     //find all payments sorted by decreasing order of amount and flatten object id
-    let p = await Payment.find({ to_user: username, done: true }).sort({ amount: -1 }).lean()
+    let p = await Payment.find({ to_user: username, done: true })
+        .sort({ amount: -1 })
+        .lean()
     return p
 }
 
@@ -80,7 +79,11 @@ export const updateProfile = async (data, oldusername) => {
         if (u) {
             return { error: "username already exists" }
         }
+        await User.updateOne({ email: ndata.email }, ndata)
+        //now update all the username in the payments table
+        await Payment.updateMany({ to_user: oldusername }, { to_user: ndata.username })
     }
-
-    await User.updateOne({ email: ndata.email }, ndata)
+    else {
+        await User.updateOne({ email: ndata.email }, ndata)
+    }
 }

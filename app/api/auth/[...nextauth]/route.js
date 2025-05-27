@@ -60,7 +60,6 @@ export const authoptions = NextAuth({
             if (dbUser) {
                 session.user.username = dbUser.username;
             }
-            console.log("Session user: ", session.user)
             return session
         },
     }
