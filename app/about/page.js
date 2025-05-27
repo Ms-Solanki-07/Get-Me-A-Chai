@@ -8,7 +8,7 @@ const About = () => {
         <div className="text-white mx-auto container pb-16">
             <h2 className="text-2xl font-bold text-center my-4 mb-8">About Get Me A Chai</h2>
             <p className="max-w-[80vw] md:max-w-[60vw] mx-auto text-center">
-            Get Me A Chai is a platform that allows creators to connect with their fans and receive support through contributions. Whether you're a content creator, artist, or entrepreneur, you can use this platform to fund your projects and engage with your audience.
+            Get Me A Chai is a platform that allows creators to connect with their fans and receive support through contributions. Whether you are a content creator, artist, or entrepreneur, you can use this platform to fund your projects and engage with your audience.
             </p>
         </div>
         <div className="bg-white h-0.5 opacity-20 w-full"></div>
@@ -22,7 +22,7 @@ const About = () => {
         <div className="text-white mx-auto container pb-16">
             <h2 className="text-2xl font-bold text-center my-4 mb-8">Get Involved</h2>
             <p className="max-w-[80vw] md:max-w-[60vw] mx-auto text-center">
-            If you're a creator looking to fund your projects or a fan wanting to support your favorite creators, Get Me A Chai is the perfect platform for you. Join us today and be part of a community that values creativity and support.
+            If you are a creator looking to fund your projects or a fan wanting to support your favorite creators, Get Me A Chai is the perfect platform for you. Join us today and be part of a community that values creativity and support.
             </p>   
         </div>
         <div className="bg-white h-0.5 opacity-20 w-full"></div>

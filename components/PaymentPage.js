@@ -19,7 +19,7 @@ const PaymentPage = ({ username }) => {
         getData()
     }, [])
 
-    useEffect(() => {
+    useEffect((session) => {
         if (searchParams.get("paymentdone") == "true") {
             toast('Payment has been Done', {
                 position: "top-right",
@@ -120,7 +120,7 @@ const PaymentPage = ({ username }) => {
 
             <div className='flex flex-col items-center justify-center mt-18'>
                 <h1 className='text-lg md:text-3xl md:font-bold mb-2'>{`@${username}`}</h1>
-                <p className='text-gray-400'>Lets help '{username}' get a chai.</p>
+                <p className='text-gray-400'>Lets help {username} get a chai.</p>
                 <p className='text-gray-500'>
                     {payments.length} Payments . ₹{payments.reduce((a, b) => a + b.amount, 0)} Raised
                 </p>
@@ -136,7 +136,7 @@ const PaymentPage = ({ username }) => {
                             return <li key={p.order_id} className='my-2 flex items-center gap-1'>
                                 <img width={33} src="avatar.gif" alt="" />
                                 <span>
-                                    {p.name} donated <span className='font-bold'>₹{p.amount}</span> with a message "{p.message}"
+                                    {p.name} donated <span className='font-bold'>₹{p.amount}</span> with a message &quot;{p.message}&quot;
                                 </span>
                             </li>
                         })}

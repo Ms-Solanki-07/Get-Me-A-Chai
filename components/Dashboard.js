@@ -16,7 +16,7 @@ const Dashboard = () => {
         setForm({ ...form, [e.target.name]: e.target.value })
     }
 
-    useEffect(() => {
+    useEffect((session) => {
         if (!session) {
             router.push('/login')
         }

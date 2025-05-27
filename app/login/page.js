@@ -8,7 +8,7 @@ const Login = () => {
     const { data: session, status } = useSession()
     const router = useRouter()
 
-    useEffect(() => {
+    useEffect((session) => {
         document.title = "Login - Get Me A Chai"
         if (session) {
             router.push('/dashboard')
