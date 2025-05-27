@@ -19,7 +19,7 @@ const PaymentPage = ({ username }) => {
         getData()
     }, [])
 
-    useEffect((session) => {
+    useEffect(() => {
         if (searchParams.get("paymentdone") == "true") {
             toast('Payment has been Done', {
                 position: "top-right",
@@ -32,7 +32,7 @@ const PaymentPage = ({ username }) => {
                 theme: "dark",
             });
         }
-        // router.push(`/${username}`)
+        router.push(`/${username}`)
         if (!session) {
             router.push('/login')
         }
