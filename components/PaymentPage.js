@@ -31,8 +31,8 @@ const PaymentPage = ({ username }) => {
                 progress: undefined,
                 theme: "dark",
             });
+            router.push(`/${username}`)
         }
-        router.push(`/${username}`)
         if (!session) {
             router.push('/login')
         }
