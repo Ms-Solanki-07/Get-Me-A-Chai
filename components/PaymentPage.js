@@ -20,10 +20,17 @@ const PaymentPage = ({ username }) => {
     }, [])
 
     useEffect(() => {
+        // If not logged in, redirect to login immediately
+        if (!session) {
+            router.push('/login');
+            return;
+        }
+
+        // If payment is done, show toast and redirect after a delay
         if (searchParams.get("paymentdone") == "true") {
-            toast('Payment has been Done', {
+            toast('Payment has been Done!', {
                 position: "top-right",
-                autoClose: 5000,
+                autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: false,
                 pauseOnHover: true,
@@ -31,12 +38,12 @@ const PaymentPage = ({ username }) => {
                 progress: undefined,
                 theme: "dark",
             });
-            router.push(`/${username}`)
+            // Redirect after toast is visible for 2 seconds
+            setTimeout(() => {
+                router.push(`/${username}`);
+            }, 2000);
         }
-        if (!session) {
-            router.push('/login')
-        }
-    }, [])
+    }, [session, searchParams, router, username]);
 
 
     const [paymentform, setPaymentform] = useState({
