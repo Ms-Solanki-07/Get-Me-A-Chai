@@ -10,10 +10,10 @@ const Login = () => {
 
     useEffect(() => {
         document.title = "Login - Get Me A Chai"
-        if (session) {
+        if (status === "authenticated" && session) {
             router.push('/dashboard')
         }
-    }, [status, router])
+    }, [status, session, router])
 
     if (status === 'loading') {
         return <>

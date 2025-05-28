@@ -41,7 +41,7 @@ const PaymentPage = ({ username }) => {
             // Redirect after toast is visible for 2 seconds
             setTimeout(() => {
                 router.push(`/${username}`);
-            }, 2000);
+            }, 3000);
         }
     }, [session, searchParams, router, username]);
 
