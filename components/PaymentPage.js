@@ -8,7 +8,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 
-const PaymentPage = ({ username }) => {
+const PaymentPage = async ({ params }) => {
+    const { username } = await params;
     const { data: session } = useSession()
     const [currentUser, setCurrentUser] = useState({})
     const [payments, setPayments] = useState([])
